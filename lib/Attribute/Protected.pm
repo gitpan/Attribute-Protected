@@ -4,7 +4,7 @@ use 5.006;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Attribute::Handlers;
 
@@ -15,7 +15,7 @@ sub UNIVERSAL::Protected : ATTR(CODE) {
     *{$symbol} = sub {
 	unless (caller->isa($package)) {
 	    require Carp;
-	    Carp::croak "$meth() is a preotected method of $package!";
+	    Carp::croak "$meth() is a protected method of $package!";
 	}
 	goto &$referent;
     };
@@ -51,9 +51,9 @@ Attribute::Protected - implementing proctected methods with attributes
   package SomeClass;
   use Attribute::Protected;
 
-  sub foo  :Public    { }
-  sub _bar :Private   { }
-  sub _baz :Protected { }
+  sub foo  : Public    { }
+  sub _bar : Private   { }
+  sub _baz : Protected { }
 
   sub another {
       my $self = shift;
@@ -90,19 +90,19 @@ protected methods in C++ or Java.
 
 =item Public
 
-  sub foo :Public { }
+  sub foo : Public { }
 
 just a mark. Can be called from everywhere.
 
 =item Private
 
-  sub _bar :Private { }
+  sub _bar : Private { }
 
 Can't be called from outside the class where it was declared.
 
 =item Protected
 
-  sub _baz :Protected { }
+  sub _baz : Protected { }
 
 Can be called from the class where it was declared or its derived classes.
 
@@ -111,9 +111,22 @@ Can be called from the class where it was declared or its derived classes.
 When called from inappropriate classes, those methods throw an
 exception like C<foo() is a protected method of Foo!>.
 
+=head1 THOUGHT
+
+=over 4
+
+=item *
+
+attributes (public, private and proteced) should be lowercased?
+
+=back
+
 =head1 AUTHOR
 
-Tatsuhiko Miyagawa, E<lt>miyagawa@bulknews.netE<gt>
+Tatsuhiko Miyagawa E<lt>miyagawa@bulknews.netE<gt>
+
+This library is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 

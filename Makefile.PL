@@ -6,8 +6,7 @@ WriteMakefile(
     'VERSION_FROM'	=> 'lib/Attribute/Protected.pm', # finds $VERSION
     'PREREQ_PM'		=> {
 	Attribute::Handlers => 0.70,
+	Test::More          => 0,
     }, # e.g., Module::Name => 1.1
-    ($] >= 5.005 ?    ## Add these new keywords supported since 5.005
-      (ABSTRACT_FROM => 'lib/Attribute/Protected.pm', # retrieve abstract from module
-       AUTHOR     => 'Tatsuhiko Miyagawa <miyagawa@bulknews.net>') : ()),
+    AUTHOR     => 'Tatsuhiko Miyagawa <miyagawa@bulknews.net>',
 );
